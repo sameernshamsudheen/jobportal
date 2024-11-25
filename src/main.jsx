@@ -3,11 +3,26 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ClerkProvider } from "@clerk/clerk-react";
+import { shadesOfPurple } from "@clerk/themes";
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key");
+}
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <App />
+      <ClerkProvider
+        appearance={{
+          baseTheme: shadesOfPurple,
+        }}
+        publishableKey={PUBLISHABLE_KEY}
+        afterSignOutUrl="/"
+      >
+        <App />
+      </ClerkProvider>
     </ThemeProvider>
   </StrictMode>
 );
