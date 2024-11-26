@@ -1,3 +1,4 @@
+import ProtectedRoute from "@/auth/ProtectedRoute";
 import AppLayout from "@/layouts/AppLayout";
 import JobListing from "@/pages/JobListing";
 import JobPage from "@/pages/JobPage";
@@ -19,31 +20,60 @@ const router = createBrowserRouter([
       },
       {
         path: "/onboarding",
-        element: <OnBoarding />,
+
+        element: (
+          <ProtectedRoute>
+            <OnBoarding />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/joblisting",
-        element: <JobListing />,
+        element: (
+          <ProtectedRoute>
+            <JobListing />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/post-job",
-        element: <PostJobs />,
+        element: (
+          <ProtectedRoute>
+            <PostJobs />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/job/:id",
-        element: <JobPage />,
+        element: (
+          <ProtectedRoute>
+            <JobPage />
+          </ProtectedRoute>
+        ),
       },
       {
-        path: "/job",
-        element: <JobListing />,
+        path: "/jobs",
+        element: (
+          <ProtectedRoute>
+            <JobListing />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/saved-jobs",
-        element: <SavedJobs />,
+        element: (
+          <ProtectedRoute>
+            <SavedJobs />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/my-jobs",
-        element: <MyJobs />,
+        element: (
+          <ProtectedRoute>
+            <MyJobs />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
