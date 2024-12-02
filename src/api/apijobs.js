@@ -39,8 +39,10 @@ export async function getJobs(token, { location, company_id, searchQuery }) {
 export async function saveJob(token, { alreadySaved }, saveData) {
   const supabase = supabaseClient(token);
   if (alreadySaved) {
-
-    let query = supabase.from("saved_jobs").delete().eq("job_id", saveData[0].job_id);
+    let query = supabase
+      .from("saved_jobs")
+      .delete()
+      .eq("job_id", saveData[0].job_id);
 
     let { data, error: deleteError } = await query;
 
@@ -50,7 +52,6 @@ export async function saveJob(token, { alreadySaved }, saveData) {
     }
     return data;
   } else {
-
     let query = supabase.from("saved_jobs").insert(saveData).select();
 
     let { data, error: insertError } = await query;
