@@ -64,3 +64,36 @@ export async function saveJob(token, { alreadySaved }, saveData) {
     return data;
   }
 }
+
+export async function getSingleJOb(token, { job_id }) {
+  const supabase = supabaseClient(token);
+  let query = supabase.from("jobs").select("*, company:companies (name,logo_url),applications:applications(*)").eq("id",job_id).single();
+
+  let { data, error: getCompaniesError } = await query;
+
+  if (getCompaniesError) {
+    console.error("Error Deleting Saved jobs", getCompaniesError);
+    return null;
+  }
+
+  return data;
+}
+
+
+export async function updateHiringStatus(token, { job_id },isOpen) {
+  const supabase = supabaseClient(token);
+  const updateData = { isOpen: isOpen[0] };
+  let query = supabase.from("jobs").update(updateData).eq("id",job_id).select();
+
+  let { data, error: getCompaniesError } = await query;
+
+  if (getCompaniesError) {
+    console.error("Error updating  jobs", getCompaniesError);
+    return null;
+  }
+
+  return data;
+}
+
+
+

@@ -100,3 +100,9 @@
     @apply gradient text-transparent bg-clip-text;
   }
 }
+
+.wmde-markdown ul {
+  list-style: disc !important;
+  padding-left: 25px !important;
+  color: white !important;
+}
