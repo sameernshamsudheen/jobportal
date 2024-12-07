@@ -1,4 +1,6 @@
 import { getSingleJOb, updateHiringStatus } from "@/api/apijobs";
+import ApplicationCard from "@/components/ApplicationCard";
+import { ApplyJobDrawer } from "@/components/ApplyJobs";
 import UseFetch from "@/hooks/UseFetch";
 import { useUser } from "@clerk/clerk-react";
 import {
@@ -78,6 +80,9 @@ const JobPage = () => {
         </div>
       </div>
       {/* hiringStatus */}
+
+      {/* {!loadingHiringStatus && <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />} */}
+
       {jobs?.recruiter_id === user?.id && (
         <Select onValueChange={handleStatusChange}>
           <SelectTrigger
@@ -110,6 +115,29 @@ const JobPage = () => {
         source={jobs?.requirements}
       />
       {/* render applications */}
+      {jobs?.recruiter_id !== user?.id && (
+        <ApplyJobDrawer
+          jobs={jobs}
+          user={user}
+          fetchJob={fnJobs}
+          applied={
+            jobs &&
+            jobs?.applications?.find((ap) => {
+              return ap.candidate_id === user.id;
+            })
+          }
+        />
+      )}
+      {jobs?.applications?.length > 0 && jobs?.recruiter_id === user?.id && (
+        <div className="flex flex-col gap-2">
+          <h2 className="text-2xl sm:text-3xl font-bold">Applications</h2>
+          {jobs.applications.map((application) => {
+            return (
+              <ApplicationCard key={application.id} application={application}  />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
