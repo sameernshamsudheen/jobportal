@@ -67,7 +67,11 @@ export async function saveJob(token, { alreadySaved }, saveData) {
 
 export async function getSingleJOb(token, { job_id }) {
   const supabase = supabaseClient(token);
-  let query = supabase.from("jobs").select("*, company:companies (name,logo_url),applications:applications(*)").eq("id",job_id).single();
+  let query = supabase
+    .from("jobs")
+    .select("*, company:companies (name,logo_url),applications:applications(*)")
+    .eq("id", job_id)
+    .single();
 
   let { data, error: getCompaniesError } = await query;
 
@@ -79,11 +83,14 @@ export async function getSingleJOb(token, { job_id }) {
   return data;
 }
 
-
-export async function updateHiringStatus(token, { job_id },isOpen) {
+export async function updateHiringStatus(token, { job_id }, isOpen) {
   const supabase = supabaseClient(token);
   const updateData = { isOpen: isOpen[0] };
-  let query = supabase.from("jobs").update(updateData).eq("id",job_id).select();
+  let query = supabase
+    .from("jobs")
+    .update(updateData)
+    .eq("id", job_id)
+    .select();
 
   let { data, error: getCompaniesError } = await query;
 
@@ -95,5 +102,25 @@ export async function updateHiringStatus(token, { job_id },isOpen) {
   return data;
 }
 
+export async function addNewJob(token, _, jobData) {
+  const supabase = supabaseClient(token);
 
 
+  let query = supabase.from("jobs").insert(jobData[0]).select();
+
+  let { data, error } = await query;
+
+  // Handle errors
+  if (error) {
+    console.error("Error updating application status:", error);
+    return null;
+  }
+
+  if (data.length === 0) {
+    console.error("No rows updated. Check if job_id exists.");
+    return null;
+  }
+
+  console.log("Update successful:", data);
+  return data;
+}

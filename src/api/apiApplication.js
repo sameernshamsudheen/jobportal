@@ -32,34 +32,47 @@ export async function applyToJob(token, _, jobData) {
 
   return data;
 }
+export async function updateApplicationStatus(token, { job_id }, statushiring) {
+  console.log("updateApplicationStatus called");
+  console.log("statushiring:", statushiring);
 
-export async function updateApplicationStatus(token, { job_id }, status) {
-  const supabase = supabaseClient(token);
-
-  const status = Array.isArray(statusArray) ? statusArray[0] : statusArray;
-  ;
-
-  const validStatuses = ["applied", "interviewing", "hired", "rejected"]; // Replace with your enum values
-  if (!validStatuses.includes(status)) {
+  // Validate `statushiring` as an array
+  if (!Array.isArray(statushiring) || statushiring.length === 0) {
     throw new Error(
-      `Invalid status: '${status}'. Allowed values: ${validStatuses.join(", ")}`
+      "Invalid 'statushiring' argument. Expected a non-empty array."
     );
   }
 
-  const payload = { status}; //
+  const supabase = supabaseClient(token);
 
+  // Extract the first status
+  const status = statushiring[0];
+  const payload = { status }; // Equivalent to { status: status }
+
+  console.log(payload, "===payload=====");
+
+  // Update query
   let query = supabase
     .from("applications")
     .update(payload)
     .eq("job_id", job_id)
     .select();
 
-  let { data, error: error } = await query;
+  let { data, error } = await query;
 
-  if (error || data.length === 0) {
-    console.error("Error Deleting Saved jobs", error);
+  // Handle errors
+  if (error) {
+    console.error("Error updating application status:", error);
     return null;
   }
 
+  if (data.length === 0) {
+    console.error("No rows updated. Check if job_id exists.");
+    return null;
+  }
+
+  console.log("Update successful:", data);
   return data;
 }
+
+
