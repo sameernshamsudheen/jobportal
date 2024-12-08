@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { State } from "country-state-city";
 import { BarLoader } from "react-spinners";
-import UseFetch from "@/hooks/useFetch";
+import UseFetch from "@/hooks/UseFetch";
 
 import JobCard from "@/components/JobCards";
 import { Button } from "@/components/ui/button";
