@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import useFetch from "@/hooks/useFetch";
+import UseFetch from "@/hooks/UseFetch";
 import { useUser } from "@clerk/clerk-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import MDEditor from "@uiw/react-md-editor";
@@ -51,7 +51,7 @@ const PostJobs = () => {
     error: errorCreateJob,
     data: dataCreateJob,
     fn: fnCreateJob,
-  } = useFetch(addNewJob);
+  } = UseFetch(addNewJob);
 
   const onSubmit = (data) => {
     fnCreateJob({
@@ -69,7 +69,7 @@ const PostJobs = () => {
     loading: loadingCompanies,
     data: companies,
     fn: fnCompanies,
-  } = useFetch(getCompanies);
+  } = UseFetch(getCompanies);
 
   useEffect(() => {
     if (isLoaded) {

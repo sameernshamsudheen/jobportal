@@ -2,7 +2,7 @@ import { useUser } from "@clerk/clerk-react";
 import ApplicationCard from "@/components/ApplicationCard";
 import { useEffect } from "react";
 import { getApplications } from "@/api/apiApplication";
-import useFetch from "@/hooks/useFetch";
+import UseFetch from "@/hooks/UseFetch";
 import { BarLoader } from "react-spinners";
 
 const CreatedApplications = () => {
@@ -12,7 +12,7 @@ const CreatedApplications = () => {
     loading: loadingApplications,
     data: applications,
     fn: fnApplications,
-  } = useFetch(getApplications, {
+  } = UseFetch(getApplications, {
     user_id: user.id,
   });
 

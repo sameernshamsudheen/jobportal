@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { State } from "country-state-city";
 import { BarLoader } from "react-spinners";
-import useFetch from "@/hooks/UseFetch";
+import UseFetch from "@/hooks/useFetch";
 
 import JobCard from "@/components/JobCards";
 import { Button } from "@/components/ui/button";
@@ -30,13 +30,13 @@ const JobListing = () => {
     // loading: loadingCompanies,
     data: companies,
     fn: fnCompanies,
-  } = useFetch(getCompanies);
+  } = UseFetch(getCompanies);
 
   const {
     loading: loadingJobs,
     data: jobs,
     fn: fnJobs,
-  } = useFetch(getJobs, {
+  } = UseFetch(getJobs, {
     location,
     company_id,
     searchQuery,
