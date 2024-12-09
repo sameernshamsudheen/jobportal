@@ -6,6 +6,7 @@ import {
   UserButton,
   SignIn,
   useUser,
+  useSignIn,
 } from "@clerk/clerk-react";
 import { Button } from "./ui/button";
 import { BriefcaseBusiness, Heart, PenBox } from "lucide-react";
@@ -14,7 +15,10 @@ const Header = () => {
   const [showSignIn, setShowSignIn] = useState(false);
 
   const [search, setSearch] = useSearchParams();
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
+  const { signIn, isProcessing } = useSignIn();
+
+  console.log( signIn,  isProcessing  ,"=======signin");
 
   useEffect(() => {
     if (search.get("sign-in")) {
@@ -81,10 +85,7 @@ const Header = () => {
           className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
           onClick={handleOverlayClick}
         >
-          <SignIn
-            signUpForceRedirectUrl="/onboarding"
-            fallbackRedirectUrl="/onboarding"
-          />
+          <SignIn signUpForceRedirectUrl="/" />
         </div>
       )}
     </>
