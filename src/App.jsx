@@ -3,7 +3,11 @@ import router from "../router/router";
 import { Suspense } from "react";
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Suspense fallback={<div>loading.....</div>}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 }
 
 export default App;
