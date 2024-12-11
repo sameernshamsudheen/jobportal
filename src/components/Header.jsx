@@ -6,7 +6,6 @@ import {
   UserButton,
   SignIn,
   useUser,
-  useSignIn,
 } from "@clerk/clerk-react";
 import { Button } from "./ui/button";
 import { BriefcaseBusiness, Heart, PenBox } from "lucide-react";
@@ -15,10 +14,7 @@ const Header = () => {
   const [showSignIn, setShowSignIn] = useState(false);
 
   const [search, setSearch] = useSearchParams();
-  const { user, isLoaded } = useUser();
-  const { signIn, isProcessing } = useSignIn();
-
-  console.log( signIn,  isProcessing  ,"=======signin");
+  const { user } = useUser();
 
   useEffect(() => {
     if (search.get("sign-in")) {
@@ -35,7 +31,7 @@ const Header = () => {
 
   return (
     <>
-      <nav className="py-4 flex justify-between items-center">
+      <nav className="py-4 px-2 xl:px-0 flex justify-between items-center">
         <Link to="/">
           <img src="/logo.png" className="h-20" alt="Hirrd Logo" />
         </Link>
@@ -85,7 +81,7 @@ const Header = () => {
           className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
           onClick={handleOverlayClick}
         >
-          <SignIn signUpForceRedirectUrl="/" />
+          <SignIn/>
         </div>
       )}
     </>

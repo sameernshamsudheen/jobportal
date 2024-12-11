@@ -1,31 +1,31 @@
 import { Button } from "@/components/ui/button";
-import Autoplay from "embla-carousel-autoplay";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
+
 import { Link } from "react-router-dom";
-import companies from "@/data/companies.json";
-import faq from "@/data/faq.json";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+
+import React, { Suspense } from "react";
+
+const LandingCarousel = React.lazy(() =>
+  import("@/components/LandingCarousel")
+);
+const FaqAccordian = React.lazy(() => import("@/components/FaqAccordian"));
 
 const Landing = () => {
   return (
-    <main className="flex flex-col gap-10 sm:gap-20 py-10 sm:py-20">
+    <main className="flex flex-col gap-10  sm:gap-20 py-10 sm:py-20 px-4 xl:px-0">
       <section className="text-center ">
         <h1 className="flex flex-col items-center justify-center gradient-title text-4xl font-extrabold sm:text-6xl lg:text-8xl tracking-tighter py-4">
           {" "}
           Find your Dream Job and{" "}
           <span className=" flex  gap-2 sm:gap-6  items-center">
             get hired{" "}
-            <img src="/logo.png" className="h-14 sm:h-24 lg:h-32" alt="logo" />
+            <img
+              src="/logo.webp"
+              className="h-14 sm:h-24 lg:h-32"
+              alt="logo"
+              loading="lazy"
+            />
           </span>
         </h1>
         <p className="text-gray-300 sm:mt-4 text-xs sm:text-xl">
@@ -34,42 +34,25 @@ const Landing = () => {
       </section>
       <div className="flex  gap-6  justify-center">
         <Link to="/jobs">
-          <Button variant="blue" size="xl">
+          <Button variant="blue" className="sm:w-52" >
             Find jobs
           </Button>
         </Link>
         <Link to="/post-job">
-          <Button size="xl" variant="destructive">
+          <Button className="sm:w-52"  variant="destructive">
             Post a job
           </Button>
         </Link>
       </div>
-      <Carousel
-        plugins={[
-          Autoplay({
-            delay: 2000,
-          }),
-        ]}
-        className="w-full py-10 -z-10 "
-      >
-        <CarouselContent className="flex  gap-5 sm:gap-20 items-center">
-          {companies.map(({ name, id, path }) => {
-            return (
-              <CarouselItem key={id} className="basis-1/3 lg:basis-1/5">
-                <img
-                  src={path}
-                  alt={name}
-                  className="h-10 sm:h-14 object-contain"
-                />
-              </CarouselItem>
-            );
-          })}
-        </CarouselContent>
-      </Carousel>
+   
+        <LandingCarousel />
+ 
 
       {/* banner */}
-      <img src="/banner.jpeg" className="w-full" />
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="px-2 xl:px-0">
+      <img src="/banner.webp" className="w-full" loading="lazy" alt="banner" />
+      </div>
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-4 px-2 xl:px-0">
         <Card>
           <CardHeader>
             <CardTitle className="font-bold">For Job Seeekers</CardTitle>
@@ -87,14 +70,9 @@ const Landing = () => {
           </CardContent>
         </Card>
       </section>
-      <Accordion type="multiple" className="w-full">
-        {faq.map((faq, index) => (
-          <AccordionItem key={index} value={`item-${index + 1}`}>
-            <AccordionTrigger>{faq.question}</AccordionTrigger>
-            <AccordionContent>{faq.answer}</AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
+      <Suspense fallback={<div>loading.....</div>}>
+        <FaqAccordian />
+      </Suspense>
     </main>
   );
 };

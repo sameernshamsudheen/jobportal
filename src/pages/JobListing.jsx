@@ -7,6 +7,7 @@ import UseFetch from "@/hooks/UseFetch";
 import JobCard from "@/components/JobCards";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+
 import {
   Select,
   SelectContent,
@@ -18,6 +19,7 @@ import {
 
 import { getCompanies } from "../api/apiCompanies";
 import { getJobs } from "@/api/apijobs";
+
 
 const JobListing = () => {
   const [searchQuery, setSearchQuery] = useState("");

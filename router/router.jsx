@@ -1,13 +1,16 @@
+import {  lazy } from "react";
 import ProtectedRoute from "@/auth/ProtectedRoute";
 import AppLayout from "@/layouts/AppLayout";
-import JobListing from "@/pages/JobListing";
-import JobPage from "@/pages/JobPage";
 
-import Landing from "@/pages/Landing";
-import MyJobs from "@/pages/MyJobs";
-import OnBoarding from "@/pages/OnBoarding";
-import PostJobs from "@/pages/PostJobs";
-import SavedJobs from "@/pages/SavedJobs";
+// Lazy load the components
+const Landing = lazy(() => import("@/pages/Landing"));
+const OnBoarding = lazy(() => import("@/pages/OnBoarding"));
+const JobListing = lazy(() => import("@/pages/JobListing"));
+const JobPage = lazy(() => import("@/pages/JobPage"));
+const PostJobs = lazy(() => import("@/pages/PostJobs"));
+const SavedJobs = lazy(() => import("@/pages/SavedJobs"));
+const MyJobs = lazy(() => import("@/pages/MyJobs"));
+
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
