@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Helmet } from "react-helmet";
 
 import { Link } from "react-router-dom";
 
@@ -14,6 +15,9 @@ const FaqAccordian = React.lazy(() => import("@/components/FaqAccordian"));
 const Landing = () => {
   return (
     <main className="flex flex-col gap-10  sm:gap-20 py-10 sm:py-20 px-4 xl:px-0">
+      <Helmet>
+        <link rel="preload" as="image" href="/banner.webp" />
+      </Helmet>
       <section className="text-center ">
         <h1 className="flex flex-col items-center justify-center gradient-title text-4xl font-extrabold sm:text-6xl lg:text-8xl tracking-tighter py-4">
           {" "}
@@ -34,23 +38,27 @@ const Landing = () => {
       </section>
       <div className="flex  gap-6  justify-center">
         <Link to="/jobs">
-          <Button variant="blue" className="sm:w-52" >
+          <Button variant="blue" className="sm:w-52">
             Find jobs
           </Button>
         </Link>
         <Link to="/post-job">
-          <Button className="sm:w-52"  variant="destructive">
+          <Button className="sm:w-52" variant="destructive">
             Post a job
           </Button>
         </Link>
       </div>
-   
-        <LandingCarousel />
- 
+
+      <LandingCarousel />
 
       {/* banner */}
       <div className="px-2 xl:px-0">
-      <img src="/banner.webp" className="w-full" loading="lazy" alt="banner" />
+        <img
+          src="/banner.webp"
+          className="w-full"
+          loading="lazy"
+          alt="banner"
+        />
       </div>
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4 px-2 xl:px-0">
         <Card>
